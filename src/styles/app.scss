@@ -15,9 +15,9 @@
     color: black;
   }
 
-  $color1:white;
-  $color2:rgb(46,46,46);
-  $color3:rgb(0,104,136);
+  $color1: white;
+  $color2: rgb(46, 46, 46);
+  $color3: rgb(0, 104, 136);
   
   .red {
     color: red;
@@ -33,6 +33,8 @@
   }
   
   @import "admin-styles/mixin";
+
+  @import "home";
   
   @import "admin-styles/dashboard";
   @import "admin-styles/products";
@@ -76,8 +78,6 @@
     }
   }
 }
-
-
 
 
 
