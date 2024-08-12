@@ -3,20 +3,21 @@
     @include flex(row, stretch, space-between, 4rem);
     height: calc(100vh - 4rem);
 
-    >main {
+    > main {
         width: 70%;
-
-        >h1 {
+    
+        overflow-y: auto;
+    
+        > h1 {
             @include heading(2px);
             text-align: center;
         }
-
-        overflow-y: auto;
-
+    
         &::-webkit-scrollbar {
             display: none;
         }
-    }
+    }    
+    
 
     >aside {
         width: 30%;
