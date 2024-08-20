@@ -19,4 +19,4 @@ const ProtectedRoute = ({isAuthenticated,children,adminOnly,admin,redirect="/"}:
   )
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;
