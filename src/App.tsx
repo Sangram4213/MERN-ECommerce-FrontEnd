@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userExist, userNotExist } from "./redux/reducer/userReducer";
 import { getUser } from "./redux/api/userAPI";
 import { UserReducerInitialState } from "./types/reducer-types";
+import ProtectedRoute from "./components/protected-route";
 
 const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
@@ -69,7 +70,7 @@ const App = () => {
         <Route path="/login" element={<Login/>}/>
 
         {/* Loggedin user route */}
-        <Route>
+        <Route element={<ProtectedRoute isAuthenticated={user ? true : false}/>}>
           {" "}
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/orders" element={<Orders/>}/>
@@ -78,7 +79,7 @@ const App = () => {
         {/* Admin Routes */}
         <Route
         element={
-          <ProtectedRoute isAuthenticated={true} adminRoute={true} isAdmin={true} />
+          <ProtectedRoute isAuthenticated={true} adminOnly={true} admin={user?.role==="admin" ? true : false}/>
         }
         >
           <Route path="/admin/dashboard" element={<Dashboard />} />
