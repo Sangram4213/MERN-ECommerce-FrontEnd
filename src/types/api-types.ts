@@ -39,3 +39,13 @@ export type SearchProductsRequest ={
     search:string;
     sort:string;
 }
+
+export type ProductResponse = {
+    success:boolean;
+    products:Product;
+}
+
+export type NewProductRequest = {
+    id:string;
+    formData: FormData;
+}
