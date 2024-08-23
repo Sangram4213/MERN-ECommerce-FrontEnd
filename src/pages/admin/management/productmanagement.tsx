@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEventHandler, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { useSelector } from "react-redux";
@@ -33,7 +33,7 @@ const Productmanagement = () => {
   const [stockUpdate, setStockUpdate] = useState<number>(stock);
   const [nameUpdate, setNameUpdate] = useState<string>(name);
   const [categoryUpdate, setCategoryUpdate] = useState<string>(category);
-  const [photoUpdate, setPhotoUpdate] = useState<string>(photo);
+  const [photoUpdate, setPhotoUpdate] = useState<string>("");
   const [photoFile, setPhotoFile] = useState<File>();
 
   const [updateProduct] = useUpdateProductMutation();
@@ -71,7 +71,12 @@ const Productmanagement = () => {
     responseToast(res,navigate,"/admin/product")
   };
 
+  const deleteHandler = async() => {
 
+    const res = await deleteProduct({productId:params?.id!,userId:user?._id!});
+
+    responseToast(res,navigate,"/admin/product");
+  };
 
   useEffect(() => {
     if (data) {
@@ -102,7 +107,7 @@ const Productmanagement = () => {
               <h3>₹{price}</h3>
             </section>
             <article>
-              <button className="product-delete-btn">
+              <button className="product-delete-btn" onClick={deleteHandler}>
                 <FaTrash />
               </button>
               <form onSubmit={submitHandler}>
