@@ -2,28 +2,35 @@ import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import CartItem from "../components/cart-item";
 import { Link } from "react-router-dom";
-
-const cartItems = [
-  {
-    productId: "mdnfmdf",
-    photo: "https://m.media-amazon.com/images/I/71jG+e7roXL._SX679_.jpg",
-    name: "MacBook",
-    price: 3000,
-    stock: 40,
-    quantity: 3,
-  },
-];
-
-const subtotal = 4000;
-const tax = Math.round(subtotal * 0.18);
-const discount = 276;
-const shippingCharges = 200;
-const total = subtotal + tax + shippingCharges;
+import { useDispatch, useSelector } from "react-redux";
+import { CartReducerInitialState } from "../types/reducer-types";
+import { CartItem as CartItemTypes } from "../types/types";
+import { addToCart, calculatePrice, removeCartItem } from "../redux/reducer/cartReducer";
 
 const Cart = () => {
+  const { cartItems, subtotal, tax, shippingCharges, discount, total } =
+    useSelector(
+      (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
+    );
+
+  const dispatch = useDispatch();
+
   const [couponCode, setCouponCode] = useState<string>("");
   const [isValidCouponCode, setIsValidCouponCode] = useState<boolean>(false);
 
+  const incrementHandler = (cartItem: CartItemTypes) => {
+    if (cartItem.stock <= cartItem.quantity) return;
+      dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity + 1 }));
+  };
+
+  const decrementHandler = (cartItem: CartItemTypes) => {
+    if (cartItem.quantity <= 1) return;
+      dispatch(addToCart({ ...cartItem, quantity: cartItem.quantity - 1 }));
+  };
+
+  const removeHandler = (id: string) => {
+    dispatch(removeCartItem(id));
+  };
   useEffect(() => {
     const timeOutID = setTimeout(() => {
       if (Math.random() > 0.5) setIsValidCouponCode(true);
@@ -35,11 +42,23 @@ const Cart = () => {
     };
   }, [couponCode]);
 
+  useEffect(()=>{
+    dispatch(calculatePrice());
+  },[cartItems])
+
   return (
     <div className="cart">
       <main>
-        {cartItems.length > 0 ? (
-          cartItems.map((i, idx) => <CartItem key={idx} cartItem={i} />)
+        {cartItems?.length > 0 ? (
+          cartItems.map((i, idx) => (
+            <CartItem
+              key={idx}
+              cartItem={i}
+              incrementHandler={incrementHandler}
+              decrementHandler={decrementHandler}
+              removeHandler={removeHandler}
+            />
+          ))
         ) : (
           <h1>No Items Added</h1>
         )}
@@ -72,7 +91,7 @@ const Cart = () => {
             </span>
           ))}
 
-        {cartItems.length > 0 && <Link to="/shipping">Checkout</Link>}
+        {cartItems?.length > 0 && <Link to="/shipping">Checkout</Link>}
       </aside>
     </div>
   );
