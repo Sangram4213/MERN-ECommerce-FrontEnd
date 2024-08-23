@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
-import CartItem from "../components/cart-item";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import CartItem from "../components/cart-item";
+import { addToCart, calculatePrice, removeCartItem } from "../redux/reducer/cartReducer";
 import { CartReducerInitialState } from "../types/reducer-types";
 import { CartItem as CartItemTypes } from "../types/types";
-import { addToCart, calculatePrice, removeCartItem } from "../redux/reducer/cartReducer";
 
 const Cart = () => {
   const { cartItems, subtotal, tax, shippingCharges, discount, total } =
