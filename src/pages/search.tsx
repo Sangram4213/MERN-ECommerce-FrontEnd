@@ -7,6 +7,9 @@ import {
 import toast from "react-hot-toast";
 import { CustomError } from "../types/api-types";
 import { Skeleton } from "../components/loader";
+import { useDispatch } from "react-redux";
+import { CartItem } from "../types/types";
+import { addToCart } from "../redux/reducer/cartReducer";
 
 const Search = () => {
   const {
@@ -22,12 +25,22 @@ const Search = () => {
   const [category, setCategory] = useState("");
   const [page, setPage] = useState(0);
 
-  const { isLoading: productLoading, data: searchData,isError:productIsError, error:productError} =
-    useSearchProductsQuery({ search, sort, price: maxPrice, category, page });
+  const {
+    isLoading: productLoading,
+    data: searchData,
+    isError: productIsError,
+    error: productError,
+  } = useSearchProductsQuery({ search, sort, price: maxPrice, category, page });
 
-  console.log(searchData);
+  const dispatch = useDispatch();
 
-  const addToCartHandler = () => {};
+  const addToCartHandler = (cartItem: CartItem) => {
+    if (cartItem.stock < 1) return toast.error("Out of Stock");
+
+    dispatch(addToCart(cartItem));
+
+    toast.success("Added to Cart");
+  };
 
   if (isError) toast.error((error as CustomError).data.message);
 
@@ -82,7 +95,9 @@ const Search = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
 
-        {productLoading ?(<Skeleton length={8}/>) : (
+        {productLoading ? (
+          <Skeleton length={8} />
+        ) : (
           <div className="search-product-list">
             {searchData?.products.map((i) => (
               <ProductCard
