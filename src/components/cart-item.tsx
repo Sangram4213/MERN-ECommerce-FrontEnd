@@ -17,7 +17,6 @@ const CartItem = ({
   removeHandler,
 }: CartItemsProps) => {
   const { photo, productId, name, price, quantity } = cartItem;
-  console.log(productId);
   return (
     <div className="cart-item">
       <img src={`${server}/${photo}`} alt={name} />
