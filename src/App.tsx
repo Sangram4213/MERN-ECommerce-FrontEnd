@@ -105,7 +105,7 @@ const App = () => {
             element={<TransactionManagement />}
           />
         </Route>
-        ;
+        
       </Routes>
     </Suspense>
     <Toaster position="bottom-center"/>
