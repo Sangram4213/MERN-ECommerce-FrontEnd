@@ -40,6 +40,8 @@ const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
 
+const NotFound = lazy(()=>import("./pages/not-found"));
+
 const App = () => {
   const dispatch = useDispatch();
   const { user, loading } = useSelector(
@@ -105,7 +107,7 @@ const App = () => {
             element={<TransactionManagement />}
           />
         </Route>
-        
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </Suspense>
     <Toaster position="bottom-center"/>
