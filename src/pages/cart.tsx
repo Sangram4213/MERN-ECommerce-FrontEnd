@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { VscError } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,15 +10,13 @@ import {
   discountApplied,
   removeCartItem,
 } from "../redux/reducer/cartReducer";
-import { CartReducerInitialState } from "../types/reducer-types";
+import { RootState, server } from "../redux/store";
 import { CartItem as CartItemTypes } from "../types/types";
-import axios from "axios";
-import { server } from "../redux/store";
 
 const Cart = () => {
   const { cartItems, subtotal, tax, shippingCharges, discount, total } =
     useSelector(
-      (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
+      (state: RootState) => state.cartReducer
     );
 
   const dispatch = useDispatch();

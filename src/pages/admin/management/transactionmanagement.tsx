@@ -4,8 +4,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { Skeleton } from "../../../components/loader";
 import { useDeleteOrderMutation, useOrderDetailsQuery, useUpdateOrderMutation } from "../../../redux/api/orderAPI";
-import { server } from "../../../redux/store";
-import { UserReducerInitialState } from "../../../types/reducer-types";
+import { RootState, server } from "../../../redux/store";
 import { Order, OrderItem } from "../../../types/types";
 import { responseToast } from "../../../utils/features";
 
@@ -36,7 +35,7 @@ const TransactionManagement = () => {
   const [deleteOrder] = useDeleteOrderMutation();
 
   const { user } = useSelector(
-    (state: { userReducer: UserReducerInitialState }) => state.userReducer
+    (state: RootState) => state.userReducer
   );
 
   const { isLoading, data, isError } = useOrderDetailsQuery(params.id!);

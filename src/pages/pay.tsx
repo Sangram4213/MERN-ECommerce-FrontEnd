@@ -1,19 +1,17 @@
 import { load } from "@cashfreepayments/cashfree-js";
 import axios from "axios";
 import { MouseEvent } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useNewOrderMutation } from "../redux/api/orderAPI";
 import { resetCart } from "../redux/reducer/cartReducer";
+import { RootState } from "../redux/store";
 import { NewOrderRequest } from "../types/api-types";
-import {
-    CartReducerInitialState,
-    UserReducerInitialState,
-} from "../types/reducer-types";
 import { responseToast } from "../utils/features";
 
 const Pay = () => {
-//   const [orderId, setOrderId] = useState<any>();
+  //   const [orderId, setOrderId] = useState<any>();
 
   const [newOrder] = useNewOrderMutation();
 
@@ -21,9 +19,7 @@ const Pay = () => {
 
   const navigate = useNavigate();
 
-  const { user } = useSelector(
-    (state: { userReducer: UserReducerInitialState }) => state.userReducer
-  );
+  const { user } = useSelector((state: RootState) => state.userReducer);
 
   const {
     shippingInfo,
@@ -34,7 +30,7 @@ const Pay = () => {
     shippingCharges,
     total,
   } = useSelector(
-    (state: { cartReducer: CartReducerInitialState }) => state.cartReducer
+    (state: RootState) => state.cartReducer
   );
 
   const orderData: NewOrderRequest = {
@@ -83,21 +79,21 @@ const Pay = () => {
     }
   };
 
-//   const verifyPayment = async (orderId: any) => {
-//     try {
-//       let res = await axios.post(
-//         `${import.meta.env.VITE_SERVER}/api/v1/payment/verify`,
-//         {
-//           orderId: orderId,
-//         }
-//       );
-//       if (res && res.data == 200) {
-//         toast.success("Payment Verified");
-//       }
-//     } catch (error: any) {
-//       console.log("Error executing POST request:");
-//     }
-//   };
+  //   const verifyPayment = async (orderId: any) => {
+  //     try {
+  //       let res = await axios.post(
+  //         `${import.meta.env.VITE_SERVER}/api/v1/payment/verify`,
+  //         {
+  //           orderId: orderId,
+  //         }
+  //       );
+  //       if (res && res.data == 200) {
+  //         toast.success("Payment Verified");
+  //       }
+  //     } catch (error: any) {
+  //       console.log("Error executing POST request:");
+  //     }
+  //   };
 
   const handleClick = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -121,6 +117,7 @@ const Pay = () => {
         "Payment finished. Check status."
       ) {
         await newOrder(orderData);
+        toast.success("Payment Verified");
         dispatch(resetCart());
         navigate("/orders");
       }
