@@ -1,6 +1,6 @@
 import { load } from "@cashfreepayments/cashfree-js";
 import axios from "axios";
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -29,9 +29,11 @@ const Pay = () => {
     discount,
     shippingCharges,
     total,
-  } = useSelector(
-    (state: RootState) => state.cartReducer
-  );
+  } = useSelector((state: RootState) => state.cartReducer);
+
+  useEffect(() => {
+    if (cartItems.length === 0) return navigate("/cart");
+  }, [cartItems]);
 
   const orderData: NewOrderRequest = {
     shippingInfo,

@@ -18,6 +18,11 @@ export type UserResponse = {
   user: User;
 };
 
+export type AllUserResponse = {
+  success: boolean;
+  users: User[];
+};
+
 export type AllProductsResponse = {
   success: boolean;
   products: Product[];
@@ -60,6 +65,11 @@ export type DeleteProductRequest = {
   userId: string;
   productId: string;
 };
+
+export type DeleteUserRequest={
+  userId:string,
+  adminUserId:string
+}
 
 export type NewOrderRequest = {
   shippingInfo: ShippingInfo;
