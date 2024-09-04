@@ -46,6 +46,9 @@ const Orders = () => {
 
   const { isLoading, data, isError, error } = useMyOrderQuery(user?._id!);
 
+  const totalAmount = data?.orders.reduce((total,order)=> total+order.total,0);
+  console.log(totalAmount);
+
   if (isError) toast.error((error as CustomError).data.message);
 
   const [rows, setRows] = useState<DataType[]>([]);

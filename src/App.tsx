@@ -16,10 +16,14 @@ const Home = lazy(() => import("./pages/home"));
 const Search = lazy(() => import("./pages/search"));
 const Cart = lazy(() => import("./pages/cart"));
 
+const Pay = lazy(() => import("./pages/pay"));
+
+
 const Shipping = lazy(() => import("./pages/shipping"));
 const Orders = lazy(() => import("./pages/orders"));
 const Login = lazy(() => import("./pages/login"));
 
+const NotFound = lazy(()=>import("./pages/not-found"));
 //Admin Routres Importing
 
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
@@ -40,7 +44,6 @@ const TransactionManagement = lazy(
   () => import("./pages/admin/management/transactionmanagement")
 );
 
-const NotFound = lazy(()=>import("./pages/not-found"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -67,6 +70,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<Cart />} />
+
+        {/* Payment Route */}
+        <Route path="/pay" element={<Pay/>}/>
 
         {/* Not Loged In Route */}
         <Route path="/login" element={<Login/>}/>
