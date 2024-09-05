@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Column } from "react-table";
 import TableHOC from "./TableHOC";
 
@@ -33,12 +34,17 @@ const columns: Column<DataType>[] = [
 ];
 
 const DashboardTable = ({ data = [] }: { data: DataType[] }) => {
-  return TableHOC<DataType>(
-    columns,
-    data,
-    "transaction-box",
-    "Top Transaction"
-  )();
+  // Use useMemo to prevent re-renders when data doesn't change
+  const MemoizedTable = useMemo(() => {
+    return TableHOC<DataType>(
+      columns,
+      data,
+      "transaction-box",
+      "Top Transaction"
+    );
+  }, [data]);
+
+  return <MemoizedTable />;
 };
 
 export default DashboardTable;
