@@ -1,40 +1,40 @@
 export type User = {
-  name:string,
-  email:string,
-  photo:string,
-  gender:string,
-  role:string,
-  dob:string,
- _id:string
-}
+  name: string;
+  email: string;
+  photo: string;
+  gender: string;
+  role: string;
+  dob: string;
+  _id: string;
+};
 
-export type Product ={
-  name:string,
-  price:number,
-  stock:number,
-  category:string,
-  photo: string,
- _id:string 
-}
+export type Product = {
+  name: string;
+  price: number;
+  stock: number;
+  category: string;
+  photo: string;
+  _id: string;
+};
 
-export type ShippingInfo={
-  address: string,
-  city: string,
-  state:string,
-  country:string,
-  pinCode: string
-}
+export type ShippingInfo = {
+  address: string;
+  city: string;
+  state: string;
+  country: string;
+  pinCode: string;
+};
 
-export type CartItem={
-  productId:string;
-  photo:string;
-  name:string;
-  price:number;
-  quantity:number;
-  stock:number;
-}
+export type CartItem = {
+  productId: string;
+  photo: string;
+  name: string;
+  price: number;
+  quantity: number;
+  stock: number;
+};
 
-export type OrderItem= Omit<CartItem,"stock"> & {_id:string};
+export type OrderItem = Omit<CartItem, "stock"> & { _id: string };
 
 export type Order = {
   orderItems: OrderItem[];
@@ -92,8 +92,8 @@ type RevenueDistribution = {
   netMargin: number;
   discount: number;
   productionCost: number;
-  burnt: number;
   marketingCost: number;
+  burnt: number;
 };
 
 type UsersAgeGroup = {
@@ -105,12 +105,12 @@ type UsersAgeGroup = {
 export type Pie = {
   orderFullfillment: OrderFullfillment;
   productCategories: Record<string, number>[];
-  stockAvailablity: {
-    inStock: number;
+  stockAvailability: {
     outOfStock: number;
+    inStock: number;
   };
   revenueDistribution: RevenueDistribution;
-  usersAgeGroup: UsersAgeGroup;
+  userAgeGroup: UsersAgeGroup;
   adminCustomer: {
     admin: number;
     customer: number;

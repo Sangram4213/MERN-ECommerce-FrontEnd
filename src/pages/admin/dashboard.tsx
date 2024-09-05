@@ -24,8 +24,6 @@ const Dashboard = () => {
 
   const stats = data?.stats!;
 
-  console.log(stats);
-
   if (isError) return <Navigate to={"/"} />;
 
   return (

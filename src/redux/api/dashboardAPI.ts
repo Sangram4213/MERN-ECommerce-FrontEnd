@@ -13,9 +13,9 @@ export const dashboardApi = createApi({
       query: (id) => `stats?id=${id}`,
     }),
 
-    pie: builder.query<PieResponse, string>({
-      query: (id) => `pie?id=${id}`,
-    }),
+   pie:builder.query<PieResponse,string>({
+    query:(id)=>`pie?id=${id}`
+   }),
 
     bar: builder.query<BarResponse, string>({
       query: (id) => `bar?id=${id}`,
@@ -27,5 +27,5 @@ export const dashboardApi = createApi({
   }),
 });
 
-export const { useBarQuery, useLineQuery, usePieQuery, useStatsQuery } =
+export const { useBarQuery,useLineQuery, useStatsQuery,usePieQuery } =
   dashboardApi;
