@@ -20,7 +20,7 @@ const PieCharts = () => {
   const ageGroup = data?.charts?.userAgeGroup!;
   const adminCustomer = data?.charts?.adminCustomer!;
 
-  if (isError || !data) return <Navigate to={"/*"} />;
+
   return (
     <div className="admin-container">
     <AdminSidebar />

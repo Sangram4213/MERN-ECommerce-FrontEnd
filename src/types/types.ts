@@ -118,8 +118,8 @@ export type Pie = {
 };
 
 export type Bar = {
-  users: number[];
   products: number[];
+  users: number[];
   orders: number[];
 };
 export type Line = {
