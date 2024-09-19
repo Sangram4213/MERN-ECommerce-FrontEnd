@@ -5,7 +5,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "../../../components/admin/AdminSidebar";
 import { Skeleton } from "../../../components/loader";
 import { useDeleteProductMutation, useProductDetailsQuery, useUpdateProductMutation } from "../../../redux/api/productAPI";
-import { RootState, server } from "../../../redux/store";
+import { RootState } from "../../../redux/store";
 import { responseToast } from "../../../utils/features";
 
 const Productmanagement = () => {
@@ -98,7 +98,7 @@ const Productmanagement = () => {
           <>
             <section>
               <strong>ID - {_id}</strong>
-              <img src={`${server}/${photo}`} alt="Product" />
+              <img src={`${photo.url}`} alt="Product" />
               <p>{name}</p>
               {stock > 0 ? (
                 <span className="green">{stock} Available</span>
